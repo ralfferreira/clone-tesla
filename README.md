@@ -13,6 +13,7 @@ https://user-images.githubusercontent.com/57114762/126234341-45a91137-8d56-49eb-
 - [x] React
 - [x] Styled Components
 - [x] TypeScript
+- [x] Framer Motion
 
 ## Starting Dev Environment
 
