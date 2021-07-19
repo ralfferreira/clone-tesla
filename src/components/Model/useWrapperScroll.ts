@@ -1,31 +1,34 @@
-import { useMotionValue } from "framer-motion";
-import { useContext, useEffect } from "react";
-import ModelsContext from "./ModelsContext";
+import { useContext, useEffect } from 'react'
+import { useMotionValue } from 'framer-motion'
+
+import ModelsContext from './ModelsContext'
 
 export default function useWrapperScroll() {
-    const { wrapperRef } = useContext(ModelsContext)
+  const { wrapperRef } = useContext(ModelsContext)
 
-    const scrollY = useMotionValue(0)
-    const scrollYProgress = useMotionValue(0)
+  const scrollY = useMotionValue(0)
+  const scrollYProgress = useMotionValue(0)
 
-    useEffect(() => {
-        const element = wrapperRef.current
+  useEffect(() => {
+    if (wrapperRef.current) {
+      const updateScrollValue = () => {
+        if (wrapperRef.current) {
+          const { scrollTop, scrollHeight, offsetHeight } = wrapperRef.current
 
-        if (element) {
-            const updateScrollValue = () => {
-                const { scrollTop, scrollHeight, offsetHeight } = element
-                
-                const fullScroll = scrollHeight - offsetHeight
+          const fullScroll = scrollHeight - offsetHeight
 
-                scrollY.set(scrollTop)
-                scrollYProgress.set(scrollTop / fullScroll)
-            }
-
-            element.addEventListener('scroll', updateScrollValue)
-
-            return () => element?.removeEventListener('scroll', updateScrollValue)
+          scrollY.set(scrollTop)
+          scrollYProgress.set(scrollTop / fullScroll)
         }
-    }, [scrollY, scrollYProgress, wrapperRef])
+      }
 
-    return { scrollY, scrollYProgress }
+      wrapperRef.current.addEventListener('scroll', updateScrollValue)
+
+      return () =>
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        wrapperRef?.current?.removeEventListener('scroll', updateScrollValue)
+    }
+  }, [wrapperRef, scrollY, scrollYProgress])
+
+  return { scrollY, scrollYProgress }
 }
