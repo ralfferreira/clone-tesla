@@ -4,6 +4,8 @@ UI Clone - Tesla
 
 <p align="center"><a href="https://tesla.com">Tesla Homepage</a> UI clone for study purposes.</p>
 
+https://user-images.githubusercontent.com/57114762/126234341-45a91137-8d56-49eb-bddd-4b0b8368c7b3.mp4
+
 <hr>
 
 ## Techs
